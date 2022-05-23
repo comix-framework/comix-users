@@ -1,4 +1,4 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql'
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { TokenService } from './token.service'
 import { Token } from './entities/token.entity'
 import { SignInTdo } from '../users/dto/sign-in.tdo'
@@ -6,6 +6,9 @@ import { InputValidator } from '@shared/validator/input.validator'
 import { UserInputError } from 'apollo-server-express'
 import { SignUpTdo } from '../users/dto/sign-up.tdo'
 import { UsersService } from '../users/users.service'
+import { User } from '../users/entities/user.entity'
+import { UseGuards } from '@nestjs/common'
+import { CurrentUser, OptionAuthGuard } from '@comico/auth'
 
 @Resolver(() => Token)
 export class TokenResolver {
@@ -38,5 +41,11 @@ export class TokenResolver {
     return {
       token: this.tokenService.JWTGenerator(newUser)
     }
+  }
+
+  @Query(() => User)
+  @UseGuards(OptionAuthGuard)
+  async getMe(@CurrentUser() user) {
+    return user
   }
 }

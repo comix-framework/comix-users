@@ -5,6 +5,7 @@ import { PassportModule } from '@nestjs/passport'
 import { TokenService } from './token.service'
 import { TokenStrategy } from './passport/token.strategy'
 import { UsersModule } from '../users/users.module'
+import { TokenResolver } from './token.resolver'
 
 @Module({
   imports: [
@@ -14,6 +15,6 @@ import { UsersModule } from '../users/users.module'
     PassportModule,
     UsersModule
   ],
-  providers: [TokenStrategy, TokenService]
+  providers: [TokenStrategy, TokenService, TokenResolver]
 })
 export class TokenModule {}
