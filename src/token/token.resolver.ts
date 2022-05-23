@@ -1,11 +1,11 @@
 import { Args, Mutation, Resolver } from '@nestjs/graphql'
 import { TokenService } from './token.service'
 import { Token } from './entities/token.entity'
+import { SignInTdo } from '../users/dto/sign-in.tdo'
 import { InputValidator } from '@shared/validator/input.validator'
-import { SignInTdo } from './dto/sign-in.tdo'
 import { UserInputError } from 'apollo-server-express'
+import { SignUpTdo } from '../users/dto/sign-up.tdo'
 import { UsersService } from '../users/users.service'
-import { SignUpTdo } from './dto/sign-up.tdo'
 
 @Resolver(() => Token)
 export class TokenResolver {

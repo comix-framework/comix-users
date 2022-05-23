@@ -1,18 +1,24 @@
-import { Injectable } from '@nestjs/common'
-import { Types } from 'mongoose'
-import { UsersService } from '../users/users.service'
+import { Inject, Injectable } from '@nestjs/common'
+import { AuthService } from '@comico/auth'
 import { JwtService } from '@nestjs/jwt'
-import { SignInTdo } from './dto/sign-in.tdo'
-import { UserDocument } from '../users/entities/user.entity'
+import { ClientProxy } from '@nestjs/microservices'
 
+import { Types } from 'mongoose'
 import * as bcrypt from 'bcrypt'
 
+import { SignInTdo } from '../users/dto/sign-in.tdo'
+import { UserDocument } from '../users/entities/user.entity'
+import { UsersService } from '../users/users.service'
+
 @Injectable()
-export class TokenService {
+export class TokenService extends AuthService {
   constructor(
-    private usersService: UsersService,
-    private jwtService: JwtService
-  ) {}
+    readonly jwtService: JwtService,
+    @Inject('AUTH_SERVICE') readonly client: ClientProxy,
+    readonly usersService: UsersService
+  ) {
+    super(jwtService, client)
+  }
 
   async login(input: SignInTdo) {
     const user = await this.usersService.findOne({ email: input.email })
@@ -29,7 +35,7 @@ export class TokenService {
     }
   }
 
-  async JWTVerify(id: Types.ObjectId): Promise<any> {
+  async JWTVerify(id: string): Promise<any> {
     return this.usersService.findOne({ _id: id })
   }
 

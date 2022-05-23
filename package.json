@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@apollo/subgraph": "^2.0.3",
+    "@comico/auth": "^0.0.5",
     "@nestjs/apollo": "^10.0.12",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^2.0.1",

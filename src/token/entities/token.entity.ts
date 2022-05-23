@@ -1,7 +1,7 @@
-import { ObjectType, Field } from '@nestjs/graphql'
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 
 @ObjectType()
 export class Token {
-  @Field({ description: 'JSON Web Token' })
-  token: string
+  @Field(() => Int, { description: 'Example field (placeholder)' })
+  exampleField: number;
 }
