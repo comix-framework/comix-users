@@ -6,6 +6,7 @@ import { TokenService } from './token.service'
 import { TokenStrategy } from './passport/token.strategy'
 import { UsersModule } from '../users/users.module'
 import { TokenResolver } from './token.resolver'
+import { TokenController } from './token.controller'
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { TokenResolver } from './token.resolver'
     PassportModule,
     UsersModule
   ],
-  providers: [TokenStrategy, TokenService, TokenResolver]
+  providers: [TokenStrategy, TokenService, TokenResolver],
+  controllers: [TokenController]
 })
 export class TokenModule {}
